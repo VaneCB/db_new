@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  mysql:
+    image: mysql
+    container_name: vane_mysql
+    ports:
+      - "23313:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_USER=vanesa
+      - MYSQL_PASSWORD=vanesa
+      - MYSQL_DATABASE=dwes
+      - MYSQL_ROOT_PASSWORD=root
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "8823:80"
+    depends_on:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
+      - PMA_ARBITRARY=1
