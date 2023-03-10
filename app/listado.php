@@ -14,10 +14,11 @@ $usuario = $_SESSION['user'];
 
 $opcion = $_POST['submit'] ?? "";
 switch ($opcion){
-    case "Mostrar productos":
+    case "Listado Productos":
         $bd = new DB();
         $familia = $_POST['familia'];
-        $productos = $bd->mostrar_producto($familia);
+        $productos = $bd->mostrar_productos($familia);
+        break;
     case "logout":
         session_destroy();
         header("location:index.php?msj=Espero que vuelvas pronto");
@@ -28,7 +29,7 @@ switch ($opcion){
 $db = new DB();
 
 $familias = $db->obtener_familias();
-
+$familiaSeleccionada = isset($_POST['familia']) ? $_POST['familia'] : null;
 
 ?>
 
@@ -43,22 +44,29 @@ $familias = $db->obtener_familias();
     <title>Document</title>
 </head>
 <body>
-<header> <?=$usuario?>
+<header> <?= "Bienvenid@ " .$usuario?>
     <form action="listado.php" method="post" class="alert-light">
         <button type="submit" value="logout" name="submit" class="btn btn-danger m-3">Log out</button>
     </form>
 </header>
 
-<div class="alert alert-primary m-3 w-75 p-4">
+<div class="alert alert-primary m-3 w-auto p-4">
 <form method="post" action="listado.php">
 <fieldset>
     <legend>Productos</legend>
     <label for="familia">Selecciona una familia para ver los productos</label>
-    <?=Plantilla::listado_familias($familias)?>
-    <button type="submit" name="submit" class="btn btn-info">Mostrar productos</button>
-    <?=Plantilla::listado_productos($productos)?>
+    <?=Plantilla::listado_familias($familias, $familiaSeleccionada)?>
+    <button type="submit" name="submit" value="Listado Productos" class="btn btn-info">Mostrar productos</button>
+    <?php
+    if(isset($productos)){
+       echo Plantilla::listado_productos($productos);
+       // var_dump($productos);
+    }
+
+    ?>
 </fieldset>
 </form>
+
 </div>
 </body>
 </html>

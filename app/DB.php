@@ -53,11 +53,12 @@ class DB
         }
     }
 
-    public function mostrar_producto(): array
+    public function mostrar_productos($familia): array
     {
-        self::obtener_familias();
-        $sentencia = "select nombre_corto,descripcion,pvp from producto";
-        $rtdo = $this->ejecuta_consulta($sentencia);
+        //self::obtener_familias();
+        $sentencia = "select * from producto where familia = ?";
+        $valores =[$familia];
+        $rtdo = $this->ejecuta_consulta($sentencia, $valores);
         $filas = [];
         while ($fila = $rtdo->fetch(PDO::FETCH_ASSOC)) {
             $filas[] = $fila;

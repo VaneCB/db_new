@@ -56,7 +56,7 @@ try {
     <fieldset>
         <legend class="text-center">Acceder</legend>
         <span style="color=red"><?=$msj ?? ""?></span>
-            <label for ="name" class="form-label p-2">Datos de acceso</label>
+            <label for ="name" class="form-label p-2">Usuario</label>
             <input type="text" name="name" id="name" class="form-control p-2">
             <label for ="pass" class="form-label p-2">Contraseña</label><br>
             <input type="text" name="pass" id="pass" class="form-control p-2"><br>
