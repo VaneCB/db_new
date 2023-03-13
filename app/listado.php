@@ -60,7 +60,7 @@ $familiaSeleccionada = isset($_POST['familia']) ? $_POST['familia'] : null;
     <?php
     if(isset($productos)){
        echo Plantilla::listado_productos($productos);
-       // var_dump($productos);
+       //var_dump(Plantilla::listado_productos($productos));
     }
 
     ?>

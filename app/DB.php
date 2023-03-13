@@ -62,8 +62,26 @@ class DB
         $filas = [];
         while ($fila = $rtdo->fetch(PDO::FETCH_ASSOC)) {
             $filas[] = $fila;
-
         }
         return $filas;
+    }
+
+    public function ver_producto($cod): array {
+        $sentencia = "select * from producto where cod = ? LIMIT 1";
+        $valores = [$cod];
+        $rtdo = $this->ejecuta_consulta($sentencia, $valores);
+        $producto = $rtdo->fetch(PDO::FETCH_ASSOC);
+        return $producto;
+    }
+
+    public function actualizar_producto($cod, $nombre_corto, $nombre, $precio, $descripcion) {
+        $sentencia = "UPDATE producto SET nombre_corto= ? , nombre = ?, PVP = ?, descripcion = ? WHERE cod = ?";
+        $valores = [$nombre_corto, $nombre, $precio, $descripcion, $cod];
+        try {
+            $rtdo = $this->ejecuta_consulta($sentencia, $valores);
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 }
