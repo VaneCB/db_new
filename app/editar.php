@@ -29,7 +29,7 @@ if (isset($_POST['producto'])){
         <input type="hidden" name="cod" value=<?="{$producto['cod']}"?>>
         <input type="hidden" name="familia" value=<?="{$producto['familia']}"?>>
         <label for="nombre_corto">Nombre corto</label>
-        <input class="form-control" type="text" name="nombre_corto" value=<?="{$producto['nombre_corto']}"?>><br>
+        <input class="form-control" type="text" name="nombre_corto" value="<?=htmlspecialchars($producto['nombre_corto'])?>"><br>
         <label for="nombre">Nombre</label>
         <input class="form-control" type="text" name="nombre" value=<?="{$producto['nombre']}"?>><br>
         <label for="descripcion">Descripcion</label>

@@ -30,8 +30,10 @@ if (isset($_POST['submit'])){
 header("Refresh:3;url=listado.php?familia=$familia");
 if ($rtdo==true){
     echo "<h1>Se han actualizado los datos con exito el producto $nombre_corto con codigo $cod </h1>";
-}else{
+}else if($rtdo==false && !$_POST['reset']){
     echo "<h1>Ha ocurrido un error</h1>";
+}else{
+    echo "<h1>Has cancelado los cambios</h1>";
 }
 
 
