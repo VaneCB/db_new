@@ -17,14 +17,13 @@ class Plantilla
     public static function listado_productos($productos){
         $html_list = "<ul>";
         foreach ($productos as $producto){
+            $html_list.=" <form method='post' action='editar.php'>";
             $html_list.="<li value='{$producto['cod']}'>
             {$producto['nombre_corto']} 
-            {$producto['PVP']}";
-            $html_list.=" 
-            <form method='post' action='editar.php'> 
-            <button type='submit' name='submit' value='Editar'>Editar2</button>
+            {$producto['PVP']}
             <input type='hidden' name='familia' value='{$producto['familia']}'>
             <input type='hidden' name='producto' value='{$producto['cod']}'>
+             <button class='btn btn-info btn-sm' type='submit' name='submit' value='Editar'>Editar</button>
             </form>
             </li>";
         }

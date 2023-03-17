@@ -81,6 +81,7 @@ class DB
             $rtdo = $this->ejecuta_consulta($sentencia, $valores);
             return true;
         } catch (PDOException $e) {
+            echo "<h1>Error </h1>".$e->getMessage();
             return false;
         }
     }

@@ -25,6 +25,7 @@ if (isset($_POST['submit'])){
         $msj="Datos incorrectos";
     }
 }
+
 /*try {
     $con = new mysqli ("127.0.0.1" ,USER,PASS, "dwes", 23313);
 } catch (mysqli_sql_exception $exception){
@@ -55,7 +56,6 @@ try {
     <form action="index.php" method="post">
     <fieldset>
         <legend class="text-center">Acceder</legend>
-        <span style="color=red"><?=$msj ?? ""?></span>
             <label for ="name" class="form-label p-2">Usuario</label>
             <input type="text" name="name" id="name" class="form-control p-2">
             <label for ="pass" class="form-label p-2">Contraseña</label><br>
@@ -63,6 +63,10 @@ try {
             <button class="btn btn-primary btn-sm pt-2 text-center" type="submit" name="submit">Enviar</button>
     </fieldset>
     </form>
+    <span class="text-bg-danger">
+        <?= isset($_GET['msj']) ? $_GET['msj'] : '' ?>
+        <?= isset($msj) ? $msj : '' ?>
+    </span>
 </div>
 </body>
 </html>

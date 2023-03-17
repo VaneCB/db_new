@@ -1,35 +1,32 @@
 <?php
+
 require "conexion.php";
 $carga=fn($clase)=>require("$clase.php");
+
 spl_autoload_register($carga);
 ini_set('display_errors',true);
 error_reporting(E_ALL);
 
 session_start();
 
-if(!isset($_SESSION['user'])){
-
-}
 $usuario = $_SESSION['user'];
 
-$opcion = $_POST['submit'] ?? "";
-switch ($opcion){
-    case "Listado Productos":
-        $bd = new DB();
-        $familia = $_POST['familia'];
-        $productos = $bd->mostrar_productos($familia);
-        break;
-    case "logout":
-        session_destroy();
-        header("location:index.php?msj=Espero que vuelvas pronto");
-        exit;
 
-    default:
+if(isset($_POST['submit']) && $_POST['submit'] == "logout") {
+    session_destroy();
+    $msj = "Espero que vuelvas pronto";
+    header("location:index.php?$msj");
+    exit;
 }
 $db = new DB();
 
 $familias = $db->obtener_familias();
-$familiaSeleccionada = isset($_POST['familia']) ? $_POST['familia'] : null;
+$familiaSeleccionada = $_POST['familia']?? $_GET['familia']?? null;
+if (isset($familiaSeleccionada)){
+    $bd = new DB();
+    $productos = $bd->mostrar_productos($familiaSeleccionada);
+
+}
 
 ?>
 
@@ -51,12 +48,15 @@ $familiaSeleccionada = isset($_POST['familia']) ? $_POST['familia'] : null;
 </header>
 
 <div class="alert alert-primary m-3 w-auto p-4">
-<form method="post" action="listado.php">
 <fieldset>
     <legend>Productos</legend>
+    <form method="post" action="listado.php">
+
     <label for="familia">Selecciona una familia para ver los productos</label>
     <?=Plantilla::listado_familias($familias, $familiaSeleccionada)?>
     <button type="submit" name="submit" value="Listado Productos" class="btn btn-info">Mostrar productos</button>
+    </form>
+
     <?php
     if(isset($productos)){
        echo Plantilla::listado_productos($productos);
@@ -65,7 +65,6 @@ $familiaSeleccionada = isset($_POST['familia']) ? $_POST['familia'] : null;
 
     ?>
 </fieldset>
-</form>
 
 </div>
 </body>
